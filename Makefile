@@ -6,15 +6,3 @@ test:
 	black {package_name} tests/
 	isort {package_name} tests/
 
-.PHONY: docs-serve
-docs-serve:
-	mkdocs serve
-
-.PHONY: docs-publish
-docs-publish:
-	mkdocs mkdocs gh-deploy --force
-
-.PHONY: publish
-publish:
-	poetry build
-	poetry publish

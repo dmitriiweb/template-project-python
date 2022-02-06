@@ -11,11 +11,8 @@ FILES_FOR_UPDATE = (
     PROJECT_DIR.joinpath(i)
     for i in (
         "tests/test_template_project_python.txt",
-        "LICENSE",
         "Makefile",
-        "mkdocks.yml",
         "pyproject.toml",
-        "tox.ini",
     )
 )
 
