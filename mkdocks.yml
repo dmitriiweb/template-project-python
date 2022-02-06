@@ -1,4 +1,4 @@
-site_name: data2model
+site_name: {project_title}
 
 plugins:
   - search

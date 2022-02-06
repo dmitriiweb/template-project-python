@@ -1,0 +1,5 @@
+import {package_name}
+
+
+def test_template_project_python():
+    assert {package_name}.__version__ == "0.1.0"

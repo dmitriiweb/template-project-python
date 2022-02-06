@@ -1,10 +1,10 @@
 .PHONY: test
 test:
-	pytest --cov=template_project_python -vv tests/
-	flake8 template_project_python tests/
-	mypy template_project_python --implicit-reexport
-	black template_project_python tests/
-	isort template_project_python tests/
+	pytest --cov={package_name} -vv tests/
+	flake8 {package_name} tests/
+	mypy {package_name} --implicit-reexport
+	black {package_name} tests/
+	isort {package_name} tests/
 
 .PHONY: docs-serve
 docs-serve:
