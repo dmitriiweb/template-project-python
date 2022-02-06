@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 
 from pathlib import Path
@@ -107,9 +108,16 @@ def edit_file(
     write_file(filepath, file_content)
 
 
+def edit_readme(project_info: ProjectInfo):
+    file = PROJECT_DIR.joinpath("README.md")
+    content = f"# {project_info.project_title}"
+    write_file(file, content)
+
+
 def init_git():
     print("Initializing git...")
-    os.system("rm -rf .git")
+    git_folder = PROJECT_DIR.joinpath(".git")
+    shutil.rmtree(git_folder)
     os.system("git init")
     os.system("git add .")
 
@@ -120,8 +128,9 @@ def init_poetry():
     os.system("poetry shell")
 
 
-def initial_project():
+def initial_project(project_info: ProjectInfo):
     init_poetry()
+    edit_readme(project_info)
     init_git()
 
 
@@ -137,7 +146,7 @@ def main():
     for i in FOR_RENAME:
         rename(i, project_info)
 
-    initial_project()
+    initial_project(project_info)
 
 
 if __name__ == "__main__":
