@@ -117,16 +117,12 @@ def init_git():
 def init_poetry():
     print("Initializing poetry...")
     os.system("poetry update -vv")
-
-
-def run_tests():
-    os.system("make test")
+    os.system("poetry shell")
 
 
 def initial_project():
     init_poetry()
     init_git()
-    run_tests()
 
 
 def main():
