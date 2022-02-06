@@ -1,5 +1,5 @@
-import {package_name}
+import template_project_python
 
 
 def test_template_project_python():
-    assert {package_name}.__version__ == "0.1.0"
+    assert template_project_python.__version__ == "0.1.0"
