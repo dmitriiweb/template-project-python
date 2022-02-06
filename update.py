@@ -1,10 +1,6 @@
-import asyncio
 import subprocess
 
 from pathlib import Path
-from typing import List
-
-import aiofiles
 
 
 PROJECT_DIR = Path(__file__).parent
@@ -73,15 +69,15 @@ class ProjectInfo:
         )
 
 
-async def read_file(file_path: Path) -> str:
-    async with aiofiles.open(file_path, mode="r") as f:
-        content = await f.read()
+def read_file(file_path: Path) -> str:
+    with open(file_path, mode="r") as f:
+        content = f.read()
     return content
 
 
-async def write_file(file_path: Path, content: str) -> None:
-    async with aiofiles.open(file_path, mode="w") as f:
-        await f.write(content)
+def write_file(file_path: Path, content: str) -> None:
+    with open(file_path, mode="w") as f:
+        f.write(content)
 
 
 def rename(path: Path, project_info: ProjectInfo) -> None:
@@ -93,7 +89,7 @@ def rename(path: Path, project_info: ProjectInfo) -> None:
         path.rename(Path(path.parent, project_info.package_name))
 
 
-async def edit_file(
+def edit_file(
     filepath: Path, project_info: ProjectInfo, git_user_info: GitUserInfo
 ) -> None:
     print(filepath.name)
@@ -104,23 +100,21 @@ async def edit_file(
         ("{git_user_name}", git_user_info.name),
         ("{git_user_email}", git_user_info.email),
     )
-    file_content = await read_file(filepath)
+    file_content = read_file(filepath)
     for i in replacements:
         file_content = file_content.replace(*i)
 
 
-async def main():
+def main():
     project_info = ProjectInfo()
     git_user_info = GitUserInfo()
 
     print("Editing files...")
-    await asyncio.gather(
-        *(edit_file(file, project_info, git_user_info) for file in FILES_FOR_UPDATE)
-    )
+    [edit_file(file, project_info, git_user_info) for file in FILES_FOR_UPDATE]
 
     print("Renaming...")
     [rename(i, project_info) for i in FOR_RENAME]
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
