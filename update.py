@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 from pathlib import Path
@@ -106,6 +107,28 @@ def edit_file(
     write_file(filepath, file_content)
 
 
+def init_git():
+    print("Initializing git...")
+    os.system("rm -rf .git")
+    os.system("git init")
+    os.system("git add .")
+
+
+def init_poetry():
+    print("Initializing poetry...")
+    os.system("poetry update -vv")
+
+
+def run_tests():
+    os.system("make test")
+
+
+def initial_project():
+    init_poetry()
+    init_git()
+    run_tests()
+
+
 def main():
     project_info = ProjectInfo()
     git_user_info = GitUserInfo()
@@ -117,6 +140,8 @@ def main():
     print("Renaming...")
     for i in FOR_RENAME:
         rename(i, project_info)
+
+    initial_project()
 
 
 if __name__ == "__main__":
