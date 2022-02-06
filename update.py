@@ -103,6 +103,7 @@ def edit_file(
     file_content = read_file(filepath)
     for i in replacements:
         file_content = file_content.replace(*i)
+    write_file(filepath, file_content)
 
 
 def main():
@@ -110,10 +111,12 @@ def main():
     git_user_info = GitUserInfo()
 
     print("Editing files...")
-    [edit_file(file, project_info, git_user_info) for file in FILES_FOR_UPDATE]
+    for file in FILES_FOR_UPDATE:
+        edit_file(file, project_info, git_user_info)
 
     print("Renaming...")
-    [rename(i, project_info) for i in FOR_RENAME]
+    for i in FOR_RENAME:
+        rename(i, project_info)
 
 
 if __name__ == "__main__":
