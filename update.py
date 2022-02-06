@@ -128,7 +128,15 @@ def init_poetry():
     os.system("poetry shell")
 
 
+def enable_ci():
+    github_folder = PROJECT_DIR.joinpath(".#github")
+    github_folder.rename(
+        Path(github_folder.parent, github_folder.name.replace("#", ""))
+    )
+
+
 def initial_project(project_info: ProjectInfo):
+    enable_ci()
     init_poetry()
     edit_readme(project_info)
     init_git()
