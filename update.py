@@ -58,7 +58,7 @@ class ProjectInfo:
     """
 
     def __init__(self):
-        self.project_name = PROJECT_DIR.name
+        self.project_name = str(PROJECT_DIR.absolute()).split("/")[-1]  # Why PROJECT_DIR.name returns "." (dot)
         self.project_title = self.project_name.replace("-", " ").title()
         self.package_name = self.project_name.replace("-", "_")
 
